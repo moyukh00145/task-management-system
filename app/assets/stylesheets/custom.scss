@@ -1,0 +1,83 @@
+.navbar2 {
+  background-color: #28283c ;
+}
+
+.flash{
+  position: absolute;
+  right: 10px;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  width:50% !important;
+  z-index: 100;
+}
+
+.main{
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.nav-color{
+  background-color: #e5e5e3;
+}
+
+.nav-pills .nav-link.active {
+  color: #fff ; 
+  background-color: #7f5af0 ;
+}
+
+.navbar-brand-color{
+  color:#fff;
+}
+
+
+.carausal-img {
+  width: 250px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.profile-text {
+  display: inline;
+  margin-bottom: 0px;
+  font-size: 1rem;
+  color: blueviolet;
+  font-weight: 400;
+}
+
+.horizontal-line {
+  height: 1px;
+  background-color: black;
+  width: 100%;
+  margin: auto;
+}
+
+.profile-pic-add {
+  align-self: center;
+  border: none;
+  background: transparent;
+  font-size: 2.5rem;
+}
+
+.custom-card{
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  box-shadow: 0 10px 20px rgba(72, 78, 85, 0.6);
+}
+.custom-card2{
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  background-color: #ddffcede;
+}
+
+.hover{
+  cursor: pointer; 
+}
+
+.drop-down-btn{
+  background: transparent;
+    border: none;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}

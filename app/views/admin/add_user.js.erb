@@ -1,0 +1,103 @@
+<% if @user.errors.any?%>
+  show_toast("Some error encountered")
+  $('#first-name-error').text(`<%= raw @user.errors.full_messages_for(:name)[0] %>`)
+  $('#last-name-error').text(`<%= raw @user.errors.full_messages_for(:surname)[0] %>`)
+  $('#email-error').text(`<%= raw @user.errors.full_messages_for(:email)[0] %>`)
+  $('#roles-error').text(`<%= raw @user.errors.full_messages_for(:roles)[0] %>`)
+<% else  %>
+$('#total-user-count').text(<%= @total_user %>)
+$('#close-modal').trigger('click')
+clear_input()
+$('#employee_list').append(`<tr>
+                  <td><%=@user.name+" "+@user.surname%></td>
+                  <td><%=@user.roles%></td>
+                  <td><%= @user.task.where.not(status: 2).count %></td>
+                  <td><%= @user.task.where(status: 1).count %></td>
+                </tr>`)
+$('#employee_list_2').append(`<tr id="<%= @user.id%>">
+                <td><%=@user.name+" "+@user.surname%></td>
+                <td id="roles-<%=@user.id%>"><%=@user.roles%></td>
+                <td>
+                  <div>
+                    <% if @user.Employee? %>
+                    <button type="button" id="make-hrd-<%=@user.id%>" class="btn btn-outline-primary make-hr" value="<%= @user.id%>" >
+                      Make HRD
+                    </button>
+                    <% end %>
+                    <% if @user.HRD? || @user.Employee? %>
+                    <button type="button" id="make-admin-<%=@user.id%>" class="btn btn-outline-primary make-admin" value="<%= @user.id%>">
+                      Make Admin
+                    </button>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>`)
+
+$('.make-hr').on('click',function(){
+
+  makeHR($(this).val())
+  
+})
+
+$('.make-admin').on('click',function(){
+
+  makeAdmin($(this).val())
+
+})
+
+function makeAdmin(_id){
+
+  $.ajax({
+
+    url:'/admin/make_admin',
+    method:'POST',
+    data:{id: _id,authenticity_token: $('meta[name="csrf-token"]').attr('content')},
+    success:function(data){
+      show_toast("Admin created successfully")
+    },
+    error:function(err){
+
+    }
+
+  })
+
+}
+
+function makeHR(_id){
+
+
+  $.ajax({
+
+    url:'/admin/make_hr',
+    method:'POST',
+    data:{id: _id,authenticity_token: $('meta[name="csrf-token"]').attr('content')},
+    success:function(data){
+      show_toast("HRD created successfully")
+    },
+    error:function(err){
+      
+    }
+
+  })
+}
+
+function clear_input(){
+  $('#first-name-error').text('')
+  $('#last-name-error').text('')
+  $('#email-error').text('')
+  $('#input-fname').val('')
+  $('#input-lname').val('')
+  $('#input-email').val('')
+}
+
+
+<% end  %>
+
+function show_toast(msg){
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastList = toastElList.map(function(toastEl) {
+    $(toastEl).children()[1].innerHTML=msg
+    return new bootstrap.Toast(toastEl)
+  })
+  toastList.forEach(toast => toast.show())
+}

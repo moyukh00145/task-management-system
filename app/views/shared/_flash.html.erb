@@ -1,0 +1,18 @@
+<div class="container flash" id="flash-container">
+  <% flash.each do |type, msg| %>
+  <div class="alert alert-<%=type%> text-center" id="flash" role="alert">
+    <%= msg %>
+  </div>
+  <script>
+    function remove_flash(){
+      $(document).ready(function(){
+        setTimeout(function(){
+        
+          $('#flash').fadeOut();
+        }, 3000);
+      })
+    }
+    remove_flash()
+  </script>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+
+$('#subtask-status-view-<%= sub_task.id%>').remove()
+
+$('#subtask-status-container-<%= sub_task.id%>').append(`<p class="badge profile-text" id="subtask-status-view-<%= sub_task.id%>">
+                    <%= sub_task.status%>
+                    <span class="dot <%= sub_task.status.downcase%>"></span>`)
+
+<% if final_status==true %>
+$('#task-<%= task.id%>').remove();
+$('#my-<%= task.status.downcase%>-empty-task').remove();
+$('#my-<%= task.status.downcase%>-task-list').append(`<%= render partial:"shared/taskItems", :locals => {:task => task}%>`)
+<% end  %>

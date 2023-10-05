@@ -1,0 +1,47 @@
+<div class="container" >
+
+<div class="row p-3">
+
+  <div class="col col-md-6 d-flex flex-column align-items-center justify-content-center">
+    <%if(@user.image.present?)%>
+    <%= image_tag @user.image, {class: "rounded-circle carausal-img"}%>
+    <%else%>
+    <%= image_tag "user.png", {class: "rounded-circle carausal-img",alt: "Hi"}%>
+    <%end%>
+    <%= form_with model: User.new, method: :put , local: true ,url: profile_path(1) do |f| %>
+      <div class="input-group mb-3">
+      <%= f.file_field :image ,{style: "display:none",id: "take_pic",accept: "image/*"}%>
+      </div>
+     
+      <div class="profile-pic-add" id="change_pic">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+      </div>
+       <%= f.submit "", class: "btn btn-primary m-auto",id: "submit_btn",style: "display:none" %>   
+    <% end %>
+  </div>
+  <div class="col col-md-6  justify-content-center m-auto">
+
+      <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Name
+        <p class="badge profile-text"><%= @user.name.to_s+" "+@user.surname.to_s%></p>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        	Email
+        <p class="badge profile-text"><%= @user.email%></p>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        	Role
+        <p class="badge profile-text"><%= @user.roles%></p>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+
+
+
+
+
+</div>

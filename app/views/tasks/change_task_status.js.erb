@@ -1,0 +1,13 @@
+<% if final_status==true %>
+alert("All subtask is not completed yet")
+ <%# setTimeout(function() { %>
+  window.location = '/dashboard/mytask';
+  <%# }, 500);  %>
+<% else  %>
+
+$('#task-<%= task.id%>').remove();
+$('#my-<%= task.status.downcase%>-empty-task').remove();
+
+$('#my-<%= task.status.downcase%>-task-list').append(`<%= render partial:"shared/taskItems", :locals => {:task => task}%>`)
+
+<% end %>

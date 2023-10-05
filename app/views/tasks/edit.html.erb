@@ -1,0 +1,72 @@
+<div class="min-height-300 bg-primary position-absolute blue-bar"></div>
+<div class="container-fluid mt-5 position-relative">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mb-4 custom-card p-3 task-cards">
+      <h3 class="text-center">Change Task Details Here</h3>
+        <%= form_with model: @task, local: true ,url: task_path(@task) do |f| %>
+          <div class="form-group mb-3">
+           <label for="task-date">Day task to be performed </label>
+          <%= f.date_field :task_date ,{class: "form-control",id: "task-date",min: Date.tomorrow,onfocus: "this.showPicker()"}%>
+          </div>
+          <div class="form-group mb-3">
+          <label for="task-time">Time task to be performed </label>
+          <%= f.time_field :task_time ,{class: "form-control",id: "task-time",onfocus: "this.showPicker()"}%>
+          </div>
+          <%= f.submit "Edit", class: "btn btn-primary m-auto",id: "submit_btn" %>
+            
+        <% end %>
+       
+      </div>
+    </div>
+  </div>
+  <% if @task.attachments.present?  %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mb-4 custom-card p-3 ">
+      <h3 class="text-center">Attachments</h3>
+      <div class="d-flex flex-row justify-content-center align-items-center">
+          <% @task.attachments.each do |pic|  %>
+          <% if pic.blob.content_type.include?("image")  %>
+          <% timestamp = Time.now.strftime('%Y%m%d%H%M%S') %>
+          <% filename = "image_#{timestamp}.jpg"   %>
+          <div class="image-area">
+            <%= link_to  url_for(pic.blob) , download: true  do %>
+            <%= image_tag pic, {class: "m-2 p-2 attach-image",alt: "Hi"}%>
+          <% end  %>
+            <a class="remove-image d-inline" href="<%= tasks_delete_attachments_path(task_id: @task, blob_id: pic)%>" data-method="delete" data-confirm="Are you sure?">&#215;</a>
+          </div>
+          <% else  %>
+          <div class="image-area">
+              <%= link_to  url_for(pic.blob), download: true  do %>
+              <%= image_tag 'file.png', {class: "m-2 p-2 attach-image",alt: "Hi"}%>
+              <% end  %>
+            <a class="remove-image d-inline" href="<%= tasks_delete_attachments_path(task_id: @task, blob_id: pic)%>" data-method="delete" data-confirm="Are you sure?">&#215;</a>
+          </div>
+          <% end  %>
+      <% end %>
+      </div>
+          
+      </div>
+    </div>
+  </div>
+  <% end  %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mb-4 custom-card p-3 task-cards">
+      <h3 class="text-center">Add Attachments</h3>
+
+       <%= form_with model: Task.new, local: true ,url: tasks_add_attachments_path(id: @task),id: "attachment_form" do |f| %>
+          <div class="form-group mb-3">
+          <%= f.file_field :attachments ,{class: "form-control",id: "upload_attachments"}%>
+          </div>
+          <input type="submit" name="commit" value="Add Attachments" class="btn btn-primary m-auto" id="submit_btn">
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

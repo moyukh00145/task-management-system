@@ -1,0 +1,28 @@
+<table class="table caption-top m-3">
+            <thead>
+              <tr>
+                <th scope="col">Task Name</th>
+                <th scope="col">Assigned to</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="verified_task_list">
+
+              <% @all_sended_task.each do |task| %>
+                <tr id="verified-task-<%= task.id%>">
+                  <td>
+                    <%=task.task_name%>
+                  </td>
+                  <td>
+                    <%= task.user.name+" "+task.user.surname %></td>
+                  <td>
+                     <ul class=" list-inline m-0">
+                      <li>
+                      <%= link_to 'Download PDF', generate_pdf_path(id: task.id), class: 'btn btn-outline-success print-btn' %>
+                      </li>
+                      </ul>
+                  </td>
+                </tr>
+                <% end %>
+            </tbody>
+</table>

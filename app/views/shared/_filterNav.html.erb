@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+          <select class="form-select day-filter" aria-labelledby="navbarDropdown" id="<%= status%>-day-filter" data="<%= status%>">
+            <option value="3">Day</option>
+            <option value="0">Tomorrow</option>
+            <option value="1">Today</option>
+            <option value="2">Yesterday</option>
+          </select>
+        </li>
+        <%# <li><input type="date" class="form-control" placeholder="Task Date" /></li> %>
+        <li>
+          <select class="form-select priority-filter" aria-labelledby="navbarDropdown" id="<%= status%>-priority-filter" data="<%= status%>">
+            <option selected value="3">Priority</option>
+            <option value="0">Low</option>
+            <option value="1">Medium</option>
+            <option value="2">High</option>
+          </select>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="<%= status%>-search-bar">
+        <button class="btn btn-outline-success search-btn" type="submit" data="<%= status%>">Search</button>
+      </div>
+    </div>
+  </div>
+</nav>

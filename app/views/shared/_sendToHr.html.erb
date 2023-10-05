@@ -1,0 +1,78 @@
+<div
+  class="modal fade"
+  id="sendTaskModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="sendTaskModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sendTaskModalLabel">Send to HR Department</h5>
+      </div>
+      <div class="modal-body">
+        <table class="table caption-top">
+            <thead>
+              <tr>
+                <th scope="col">Task Name</th>
+                <th scope="col">Task Category</th>
+                <th scope="col">Task Date</th>
+                <th scope="col">Task Time</th>
+                <th scope="col">Assigned to</th>
+                <th scope="col">Importance</th>
+                <th scope="col">Status</th>
+                <th scope="col">Control</th>
+              </tr>
+            </thead>
+            <tbody id="verified_task_list">
+
+               <% if @all_verified_task.count == 0  %>
+                <tr>
+                <td colspan="8" class="text-center">
+                  No Approved Task available
+                </td>
+                </tr>
+              <% end  %>
+
+              <% @all_verified_task.each do |task| %>
+                <tr id="verified-task-<%= task.id%>">
+                  <td>
+                    <%=task.task_name%>
+                  </td>
+                  <td>
+                    <%=task.task_category.task_name%>
+                  </td>
+                  <td>
+                    <%=task.task_date.strftime("%A, %B %d, %Y") if task.task_date !=nil%>
+                  </td>
+                  <td>
+                    <%=task.task_date.strftime("%H:%M %p") if task.task_date !=nil%>
+                  </td>
+                  <td>
+                    <%= task.user.name+" "+task.user.surname %></td>
+                  <td><%= task.task_importance %></td>
+                  <td>Assigned</td>
+                  <td>
+                     <ul class=" list-inline m-0">
+                      <li>
+                      <i class="btn btn-success hr-send-btn" data="<%= task.id%>"> Send</i>
+                      </li>
+                      </ul>
+                  </td>
+                </tr>
+                <% end %>
+            </tbody>
+          </table>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          id="close-modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

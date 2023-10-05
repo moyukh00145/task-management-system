@@ -1,0 +1,55 @@
+<% if task %>
+  $('#task-name').val('')
+  $('#task-category').val('');
+  $('#task-date').val('')
+  $('#task-time').val('')
+  $('#description').val('')
+  $('#assign-to').val('')
+  $('#task-priority').val('')
+  $("#sub-task-list").empty();
+<% end  %>
+<% if Task.all_assigned_tasks(current_user.employee_id, 1).count == 1  %>
+  $('#no_record_row').remove();
+<% end %>
+$('#close-modal').trigger('click')
+$('#assigned_task_list').append(` <tr>
+                  <td>
+                    <%=task.task_name%>
+                  </td>
+                  <td>
+                    <%=task.task_category.task_name%>
+                  </td>
+                  <td>
+                    <%=task.task_date.strftime("%A, %B %d, %Y") if task.task_date !=nil%>
+                  </td>
+                  <td>
+                    <%=task.task_date.strftime("%H:%M %p") if task.task_date !=nil%>
+                  </td>
+                  <td>
+                    <%= task.user.name+" "+task.user.surname %></td>
+                  <td><%= task.task_importance %></td>
+                  <td>Assigned</td>
+                  <td>
+                     <ul class=" list-inline m-0">
+                      <li class="list-inline-item">
+                        <%= link_to edit_task_path(task),class: "btn btn-success" do%>
+                          <i class="fa fa-edit"></i>
+                          <% end%>
+                      </li>
+                      <li class="list-inline-item">
+                        <%= link_to task_path(task),data: {method: :delete, confirm: 'Are you sure?'
+                          },class: "btn btn-danger" do%>
+                          <i class="fa fa-trash"></i>
+                          <% end%>
+                      </li>
+                      <li class="list-inline-item">
+                        <%= link_to task_path(task),:class=> "btn btn-primary" do %>
+                          <i class="fa fa-eye"></i>
+                          <% end %>
+                      </li>
+                       <li class="list-inline-item" id="approve_task_btn<%= task.id%>">
+                              <button class="btn btn-primary approve_task_btn" data="<%= task.id%>">Approve</button>
+                            </li>
+                      </ul>
+                  </td>
+                </tr>`)

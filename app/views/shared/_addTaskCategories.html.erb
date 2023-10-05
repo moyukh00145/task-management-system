@@ -1,0 +1,55 @@
+<div
+  class="modal fade"
+  id="addTaskCategoriesModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Task Categories</h5>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group" id="task-list">
+          <% @all_task_categories.each do |item| %>
+          <li class="list-group-item d-flex flex-column justify-content-between align-items-center" id="task-<%=item.id%>">
+            <div class="d-flex justify-content-between align-items-center w-100" id="category-list-<%= item.id%>">
+              <p class="align-items-center mb-0"><%= item.task_name %></p>
+              <div>
+              <i class="fa fa-edit btn btn-success edit-task-category" value="<%= item.id%>"></i>
+              <i class="fa fa-trash btn btn-danger del-task-category" value="<%= item.id%>"></i>
+              </div>
+            </div>
+            <div class="input-group mt-3 d-none" id="category-edit-container-<%= item.id%>">
+              <input type="text" class="form-control"  aria-label="Recipient's username" aria-describedby="button-addon2" id="category-edit-input-<%= item.id%>" value="<%= item.task_name%>">
+              <button class="btn btn-outline-success category-edit-save" type="button" value="<%= item.id%>">Save</button>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+
+        <div class="form-group mt-3">
+          <input
+            type="text"
+            class="form-control"
+            id="input-category"
+            placeholder="Task Category Name" />
+             <p id="task-category-error" class="text-danger"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          id="close-modal-task-category">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" id="add-task-caregory">
+          Add Category
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

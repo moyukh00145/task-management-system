@@ -1,0 +1,61 @@
+<div
+  class="modal fade"
+  id="exampleModal2"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div
+    class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+    role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change Roles</h5>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <table class="table caption-top">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Role</th>
+                <th scope="col">Chnage Role</th>
+              </tr>
+            </thead>
+            <tbody id="employee_list_2">
+              <% @all_users_with_roles.each do |item| %>
+              <tr id="<%= item.id%>">
+                <td><%=item.name+" "+item.surname%></td>
+                <td id="roles-<%=item.id%>"><%=item.roles%></td>
+                <td>
+                  <div>
+                    <% if item.Employee? %>
+                    <button type="button" id="make-hrd-<%=item.id%>" class="btn btn-outline-primary make-hr" value="<%= item.id%>" >
+                      Make HRD
+                    </button>
+                    <% end %>
+                    <% if item.HRD? || item.Employee? %>
+                    <button type="button" id="make-admin-<%=item.id%>" class="btn btn-outline-primary make-admin" value="<%= item.id%>">
+                      Make Admin
+                    </button>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          id="close-modal-2">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

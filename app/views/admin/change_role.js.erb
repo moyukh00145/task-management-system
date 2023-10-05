@@ -1,0 +1,7 @@
+<% if params[:role] == "2" %>
+$('#roles-<%= params[:id]%>').text("Admin")
+$('#make-admin-<%= params[:id]%>').remove()
+<% else  %>
+$('#roles-<%= params[:id]%>').text("HRD")
+<% end  %>
+$('#make-hrd-<%= params[:id]%>').remove()

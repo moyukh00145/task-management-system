@@ -1,0 +1,146 @@
+<div class="min-height-300 bg-primary position-absolute blue-bar" ></div>
+<div class="container-fluid mt-5 position-relative">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="card mb-4 custom-card">
+            <div class="card-body p-3 cursor-pointer" id="add-user-container">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">
+                      Users
+                    </p>
+                    <h5 class="font-weight-bolder" id="total-user-count">
+                      <%= @total_user%>
+                    </h5>
+                    <p class="mb-0">Total Employee</p>
+                  </div>
+                </div>
+                <div class="col-4 text-end d-flex align-items-center justify-content-center">
+                  <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
+                    id="add-user">
+                    <i class="fas fa-duotone fa-user-plus user-add-btn"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="card mb-4 custom-card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">
+                      Pending Send to HR Department
+                    </p>
+                    <h5 class="font-weight-bolder" id="total-verified-task">
+                      <%= @all_verified_task.count%>
+                    </h5>
+                    <p class="mb-0 strong">Total Approved Task</p>
+                  </div>
+                </div>
+                <div class="col-4 text-end d-flex align-items-center justify-content-center">
+                  <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
+                    id="add-task">
+                    <button class="btn btn-outline-primary" id="send-to-hr-btn">Send to HR</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-12">
+        <div class="card mb-4 custom-card">
+          <div class="card-body p-3 h-35">
+            <h3 class="mb-3">List of Users</h3>
+            <div class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search User" aria-label="Search"
+                id="user-search" />
+              <button class="btn btn-outline-success" type="submit" id="user-search-btn">
+                Search
+              </button>
+            </div>
+            <div class="table-responsive-sm table-responsive-md table-responsive-lg">
+              <table class="table caption-top">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Pending Task</th>
+                    <th scope="col">Current Task</th>
+                  </tr>
+                </thead>
+                <tbody id="employee_list">
+                  <% @all_users.each do |item| %>
+                    <tr>
+                      <td>
+                        <%=item.name+" "+item.surname%></td>
+                  <td><%=item.roles%></td>
+                  <td><%= item.task.where.not(status: 2).count %></td>
+                  <td><%= item.task.where(status: 1).count %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+            </div>
+           <div class=" d-flex justify-content-center">
+                          <%= paginate @all_users%>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-12">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-12" id="change-employee-details">
+            <div class="card mb-4 custom-card hover h-10">
+              <div class="card-body p-3 d-flex flex-row">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center justify-content-center">
+                    <h4>Change Employee Role here</h4>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center justify-content-center">
+                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
+                      id="add-user">
+                      <%= image_tag "edit.png" , {class: "rounded-circle" ,alt: "Hi" } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12" id="add-task-categories">
+            <div class="card mb-4 custom-card hover h-10" >
+              <div class="card-body d-flex flex-row">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center justify-content-center">
+                    <h4>Add task Categories Here</h4>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center justify-content-center">
+                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
+                      id="add-user">
+                      <%= image_tag "addtask.png" , {class: "rounded-circle" ,alt: "Hi" } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial:"shared/useradd" %>
+  <%= render partial:"shared/changerole" %>
+    <%= render partial:"shared/addTaskCategories" %>
+      <%= render partial:"shared/sendToHr" %>

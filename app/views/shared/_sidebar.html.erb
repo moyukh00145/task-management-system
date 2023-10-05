@@ -1,0 +1,46 @@
+<div class="flex-column min-vh-100 p-3 nav-color side-responsive" style="width: 280px; z-index: 100">
+  <ul class="nav nav-pills flex-column mb-auto" id="side-list" user_id="<%= session[:user_id]%>">
+    <li class="nav-item">
+      <%= link_to "My Task" , dashboard_mytask_path,class: "nav-link link-dark
+      #{" active" if (@active_window=="mytask" )}",id:"my-task-li" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Assign Task" , dashboard_assigntask_path,class: "nav-link
+      link-dark #{" active" if (@active_window=="assigntask" )}" ,id:"assign-li"%>
+    </li>
+    <% if (session[:role]==2)%>
+      <li class="nav-item">
+        <%= link_to "Admin Panel" , dashboard_adminpanel_path,class: "nav-link
+      link-dark #{" active" if (@active_window=="adminpanel" )}" ,id:"admin-li"%>
+      </li>
+      <%elsif (session[:role]==1)%>
+        <li class="nav-item">
+          <%= link_to "HR Control" , dashboard_hrpanel_path,class: "nav-link
+      link-dark #{" active" if (@active_window=="hrpanel" )}",id:"hr-li" %>
+        </li>
+        <%end%>
+  </ul>
+  <hr />
+  <div class="dropdown">
+    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+      data-bs-toggle="dropdown" aria-expanded="false">
+      <%if(@user.image.present?)%>
+        <%= image_tag @user.image, {class: "rounded-circle carausal-img" ,style: "width:80px; height:80px" }%>
+          <%else%>
+            <%= image_tag "user.png" , {class: "rounded-circle carausal-img
+      me-2" ,style: "width:80px; height:80px" }%>
+              <%end%>
+                <strong>
+                  <%=@user.name.to_s+" "+@user.surname.to_s%></strong>
+    </a>
+
+    <ul
+      class=" dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" style="">
+                    <%= link_to "Profile" ,profile_index_path,class:"nav-link text-white" %>
+                      <li>
+                        <hr class="dropdown-divider" />
+                      </li>
+                      <%= link_to "Sign out" ,authentication_logout_path,class:"nav-link text-white" %>
+                        </ul>
+  </div>
+</div>

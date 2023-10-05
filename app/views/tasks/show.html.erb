@@ -1,0 +1,91 @@
+<div class="min-height-300 bg-primary position-absolute blue-bar"></div>
+<div class="container-fluid mt-5 position-relative">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mb-4 custom-card p-3 task-cards">
+        <h2>Task Details</h2>
+        <div class="horizontal-line"></div>
+        <div class="card-body p-3 w-50">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Task Name
+              <p class="badge profile-text">
+                <%= @task.task_name%>
+              </p>
+            </li>
+            <li class=" list-group-item d-flex justify-content-between align-items-center">
+              Category
+              <p class="badge profile-text">
+                <%= @task.task_category.task_name%>
+              </p>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Assigned To
+              <p class="badge profile-text">
+                <%= @task.user.name+" "+@task.user.surname%>
+                  </p>
+                </li>
+                <li class=" list-group-item d-flex justify-content-between align-items-center">
+                  Scheduled Date
+                  <p class="badge profile-text">
+                    <%= @task.task_date.tomorrow? ? "Tommorw" : @task.task_date.strftime("%A, %B %d, %Y")%>
+                  </p>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Scheduled Time
+              <p class="badge profile-text">
+                <%= @task.task_date.strftime("%H:%M %p")%>
+              </p>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Current Status
+              <p class="badge profile-text">
+                <%= @task.status%>
+                  <span class="dot <%= @task.status.downcase%>"></span>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<% if @sub_tasks.count>0  %>
+  <div class="container d-flex align-items-center flex-column">
+    <h3 class="mt-2">Subtasks</h3>
+    <div class="horizontal-line-small"></div>
+    <div class="container mt-3 justify-content-center sub-task-container">
+      <ul>
+      <% @sub_tasks.each do |subtask| %>
+        <li class="list-group-item sub-tasks-border d-flex justify-content-between align-items-center">
+          <%= subtask.name %>
+          <p class="badge profile-text">
+            <%= subtask.status%>
+              <span class="dot <%= subtask.status.downcase%>"></span>
+          </p>
+        </li>  
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <% end %>
+
+<% if @task.attachments.present?  %>
+  <div class="card card-body d-flex align-items-center">
+  <h5 class="text-center">Attachment</h5>
+  <div class="d-flex flex-row justify-content-center align-items-center">
+      <% @task.attachments.each do |pic|  %>
+          <% if pic.blob.content_type.include?("image")  %>
+          <% timestamp = Time.now.strftime('%Y%m%d%H%M%S') %>
+          <% filename = "image_#{timestamp}.jpg"   %>
+          <%= link_to  url_for(pic.blob) , download: true  do %>
+          <%= image_tag pic, {class: "m-2 p-2 attach-image",alt: "Hi"}%>
+          <% end  %>
+          <% else  %>
+         <%= link_to  url_for(pic.blob), download: true  do %>
+          <%= image_tag 'file.png', {class: "m-2 p-2 attach-image",alt: "Hi"}%>
+          <% end  %>
+          <% end  %>
+      <% end %>
+  </div>
+</div>
+<% end  %>

@@ -1,0 +1,11 @@
+$('#my-<%= identification%>-task-list').empty()
+$('.no-assigned-task').remove()
+<% if task.count == 0  %>
+$('#my-<%= identification%>-task-list').append(`<h3>No such Task found</h3>`)
+<% else  %>
+
+  $('#my-<%= identification%>-task-list').empty() 
+  $('#my-<%= identification%>-task-list').append(`<% task.each do |task| %>
+                      <%= render partial:"shared/taskItems", :locals => {:task => task}%>
+                    <% end %>`) 
+<% end  %>

@@ -1,0 +1,16 @@
+<% if task.status_for_database == 2  %>
+$("#approve_task_btn<%= task.id%>").empty()
+$("#approve_task_btn<%= task.id%>").append(` <button class="btn btn-outline-success approve_task_btn" disabled>Approved &#10003</button>`)
+ show_toast("Task has been approved")
+<% else  %>
+  alert("Task is yet to complete")
+<% end  %>
+
+function show_toast(msg){
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastList = toastElList.map(function(toastEl) {
+    $(toastEl).children()[1].innerHTML=msg
+    return new bootstrap.Toast(toastEl)
+  })
+  toastList.forEach(toast => toast.show())
+}

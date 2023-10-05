@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_name: MyString
+  task_category: MyString
+  task_date: 2023-06-14 13:40:48
+  task_time: 2023-06-14 13:40:48
+  repeat_interval: 1
+  task_importance: 1
+  user: one
+
+two:
+  task_name: MyString
+  task_category: MyString
+  task_date: 2023-06-14 13:40:48
+  task_time: 2023-06-14 13:40:48
+  repeat_interval: 1
+  task_importance: 1
+  user: two
