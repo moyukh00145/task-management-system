@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: task_management_system_production
-  username: task_management_system
-  password: <%= ENV['TASK_MANAGEMENT_SYSTEM_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
