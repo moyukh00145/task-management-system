@@ -3,8 +3,8 @@
 require 'httparty'
 # User Model
 class User < ApplicationRecord
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
 
   enum roles: {
     Employee: 0,
@@ -25,18 +25,18 @@ class User < ApplicationRecord
   scope :user_params_update, ->(id, update_params) { where(id:).update(update_params) }
   scope :page_wise_user, ->(page_no) { page(page_no).per(6) }
 
-  settings do
-    mappings dynamic: false do
-      indexes :name, type: :text, analyzer: :english
-      indexes :surname, type: :text, analyzer: :english
-      indexes :email, type: :text, analyzer: :english
-    end
-  end
+  # settings do
+  #   mappings dynamic: false do
+  #     indexes :name, type: :text, analyzer: :english
+  #     indexes :surname, type: :text, analyzer: :english
+  #     indexes :email, type: :text, analyzer: :english
+  #   end
+  # end
 
-  def self.index_data
-    __elasticsearch__.create_index!
-    __elasticsearch__.import force: true
-  end
+  # def self.index_data
+  #   __elasticsearch__.create_index!
+  #   __elasticsearch__.import force: true
+  # end
 
   def as_indexed_json(_options = {})
     {
@@ -56,5 +56,5 @@ class User < ApplicationRecord
     response.records
   end
 
-  index_data
+  # index_data
 end

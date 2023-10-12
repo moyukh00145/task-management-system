@@ -2,8 +2,8 @@
 
 # Task Model
 class Task < ApplicationRecord
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
 
   enum task_importance: {
     Low: 0,
@@ -46,20 +46,20 @@ class Task < ApplicationRecord
   scope :approaved_tasks, -> { where(task_approval: true).where(sended_to_hr: false) }
   scope :snded_to_hr, -> { where(sended_to_hr: true) }
 
-  def self.index_data
-    __elasticsearch__.create_index!
-    __elasticsearch__.import force: true
-  end
+  # def self.index_data
+  #   __elasticsearch__.create_index!
+  #   __elasticsearch__.import force: true
+  # end
 
-  settings do
-    mappings dynamic: false do
-      indexes :task_name, type: :text, analyzer: :english
-      indexes :description, type: :text, analyzer: :english
-      indexes :status, type: :integer
-      indexes :user_id, type: :integer
-      indexes :uid, type: :text
-    end
-  end
+  # settings do
+  #   mappings dynamic: false do
+  #     indexes :task_name, type: :text, analyzer: :english
+  #     indexes :description, type: :text, analyzer: :english
+  #     indexes :status, type: :integer
+  #     indexes :user_id, type: :integer
+  #     indexes :uid, type: :text
+  #   end
+  # end
 
   def as_indexed_json(_options = {})
     {
@@ -83,7 +83,7 @@ class Task < ApplicationRecord
     response.records
   end
 
-  index_data
+  # index_data
 
   def interval_of_notifications
     @interval_of_notification = {
