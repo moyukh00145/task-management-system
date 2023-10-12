@@ -366,6 +366,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
+  matrix
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection

@@ -48,6 +48,8 @@ gem 'faker'
 
 gem 'whenever', require: false
 
+gem 'matrix'
+
 gem 'prawn'
 
 gem 'rails-controller-testing'
@@ -83,9 +85,6 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
-end
-group :production do
-  gem 'matrix'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
